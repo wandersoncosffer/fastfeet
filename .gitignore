@@ -1,1 +1,3 @@
 /node_modules
+/steps.txt
+/src/database/index.js
