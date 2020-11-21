@@ -11,11 +11,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      cep: {
+      // cep, código postal, zip code
+      postalcode: {
         type: Sequelize.NUMBER,
         allowNull: false,
       },
-      street: {
+      // Rua, logradouro, endereço
+      addressline1: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      // complemento
+      addressline2: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -23,15 +30,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      complement: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       city: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      uf: {
+      state: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      country: {
         type: Sequelize.STRING,
         allowNull: false,
       },
