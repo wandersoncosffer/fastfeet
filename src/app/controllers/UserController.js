@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import User from '../models/User';
 
 class UserController {
@@ -23,15 +24,30 @@ class UserController {
 
   // update() Atualiza um usuário
   async update(req, res) {
-    // const userExists = await User.findOne({ where: { email: req.body.email } });
+    const { email, oldPassword } = req.body;
 
-    // if (userExists) {
-    //   return res.status(400).json({ error: 'User already exists' });
-    // }
+    const user = await User.findByPk(req.userId);
 
-    // const { id, name, email } = await User.update(req.body);
-    // return res.json(id, name, email);
-    return res.json({ status: 'ok' });
+    if (email && email !== user.email) {
+      const userExists = await User.findOne({ where: { email } });
+
+      if (userExists) {
+        return res.status(400).json({ error: 'User already exists' });
+      }
+    }
+
+    if (oldPassword && !(await user.checkPassword(oldPassword))) {
+      return res.status(401).json({ error: 'Password does not match' });
+    }
+
+    const { id, name, password } = await user.update(req.body);
+
+    return res.json({
+      id,
+      name,
+      email,
+      password,
+    });
   }
 
   // delete() Deleta um usuário
